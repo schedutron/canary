@@ -104,9 +104,11 @@ class LocationThread(threading.Thread):
         self.action_func = action_func
 
     def run(self):
-        location = functions.get_location(self.handler.geo.id(place_id))
+        #loc = functions.get_location(self.handler.geo.id(place_id))
+        #loc = convert_to_pairs(loc)
+        loc = '81.666447,25.294306,81.936722,25.510221'  # Let this be the default for now
         listener = self.stream_handler.statuses.filter(
-            follow=','.join([str(account) for account in accounts])
+            locations=loc)
         )
         while True:
             try:
@@ -124,18 +126,12 @@ class LocationThread(threading.Thread):
                 else:
                     values.append(None)
                 
+                # Do we really need the below loop construct, we only want to reply once!
                 for i in range(len(values)):
-                    if (values[i] == 'greetings')
-                    
-                        functions.reply(tweet)
-                
-                # Check if the tweet is original - workaroud for now.
-                # Listener also gets unwanted retweets, replies and so on.
-                if tweet['user']['id'] not in accounts:  # The 'in' operation not very efficient?
-                    # we have to ensure that the id is the person we're tracking. Maybe 'in' isn't good for that. 
-                    continue
-                kwargs = {'tweet': tweet, 'handler': self.handler, 'db_access': self.db_access}
-                self.action_func(kwargs)  # Note the nontraditional use of kwargs here.
+                    if values[i] == 'greetings':
+                        functions.reply(self.handler, tweet['id'], "Hi there! Hungry today?") # Make message variable
+                # Add more decision making here
+                # And send sms notifications to user, if s/he's offline
             except Exception as exception:
                 # Loop shouldn't stop if error occurs, and exception should be
                 # logged.
