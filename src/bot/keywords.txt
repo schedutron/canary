@@ -1,0 +1,29 @@
+python
+pygame
+SQL
+ramanujan
+postgresql
+asme
+computerphile
+numberphile
+artificial intelligence
+machine learning
+d3js
+mysql
+raspberrypi
+Kivy
+Tkinter
+scala
+einstein
+feynman
+multithreading
+parallel computing
+apache framework
+watson-framework
+tensorflow
+special relativity
+general relativity
+GitHub
+json
+matplotlib
+scikit-learn
