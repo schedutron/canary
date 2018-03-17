@@ -1,4 +1,6 @@
 """The main source module"""
+import os
+import signal
 
 import requests
 
@@ -13,16 +15,32 @@ import subprocess
 app = Flask(__name__)
 api = Api(app)
 
+global_process_map = {}
+
 class Main(Resource):
     def get(self):
         if request.args['mode'] == 'on':
             #bot.on
-            cmd = 'python3 -m chirps.main --rate=600 --fav --retweet --scrape="scrape_themerkle"'
-            subprocess.Popen(cmd.split())
+            rate = request.args['rate']
+            if request.args['fav'].lower() == 'true':
+                fav = '--fav'
+            else:
+                fav = ''
             
-            
-        elif request.args['mode'] == 'on':
-            #bot.off
+            if request.args['retweet'].lower() == 'false':
+                retweet = '--retweet'
+            else:
+                retweet = ''
+            cmd = 'python3 -m chirps.main --rate=%s %s %s' % (rate, fav, retweet)
+            pro = subprocess.Popen(cmd.split())
+            global_process_map[request.args['handle']] = pro.pid
+
+        elif request.args['mode'] == 'off':
+            """Switch the bot off"""
+            # Kill the subprocess started
+            user_pid= global_process_map[request.args['handle']]
+            os.kill(os.getpid(user_pid), signal.SIGTERM)
+
             
 
 global_mappings = []
