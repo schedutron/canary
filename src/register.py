@@ -28,18 +28,13 @@ class AddUser(Resource):
             #send_user("Your Canary OTP is %s" % otp)
             pass
         return response  # Now send OTP, if status ok
+        # Client should now prompt for OTP
+        # Client then sends OTP via /register/verify
     
     def parse_menu(self):
         """Parses menu uploaded as spreadsheet and stores the data in db."""
         # Returns True if passed, False otherwise
         pass
-    
-    def verify_phone(self):
-        """Verifies mobile number by by an OTP."""
-        # Returns True if passed, False otherwise
-
-        return {'status': 'otp sent'}  # Client should now prompt for OTP
-        # Client then sends OTP via /register/verify
 
 
 class Verify(Resource):
@@ -55,7 +50,6 @@ class Verify(Resource):
         else:
             response['status'] = 'failed'
         return response
-
 
 
 mappings = [(AddUser, '/register')]
