@@ -1,4 +1,8 @@
 """Registration APIs"""
+
+import random
+import twilio
+
 from flask import Flask, request, redirect
 from flask_restful import Resource, Api
 from json import dumps

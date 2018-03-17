@@ -20,6 +20,7 @@ global_mappings = []
 global_mappings.append((Main, '/'))
 global_mappings.extend(register.mappings)
 
+# Does the global mapping of views
 for mapping in global_mappings:
     api.add_resource(*mapping)
 
