@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -16,7 +15,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.TwitterAuthProvider;
 import com.kartik.canary.R;
-import com.kartik.canary.networkTest.ConnectionTest;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
@@ -25,8 +23,6 @@ import com.twitter.sdk.android.core.TwitterConfig;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.TwitterSession;
 import com.twitter.sdk.android.core.identity.TwitterLoginButton;
-
-import butterknife.BindView;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,8 +49,6 @@ public class LoginActivity extends AppCompatActivity {
         mLoginButton = findViewById(R.id.twitterLoginButton);
 
         mAuth = FirebaseAuth.getInstance();
-
-        mLoginButton.setActivated(false);
 
         mLoginButton.setCallback(new Callback<TwitterSession>() {
             @Override
@@ -116,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI(FirebaseUser user) {
         if (user != null) {
             Log.i("user: ", user.getDisplayName());
-            hideProgressDialogAndRedirect(MainActivity.class);
+            hideProgressDialogAndRedirect(FirstSetupActivity.class);
         } else {
             Log.i("login: ", "Failed");
             hideProgressDialogAndRedirect(LoginActivity.class);

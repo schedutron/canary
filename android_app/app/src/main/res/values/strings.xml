@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Canary</string>
-    <string name="twitter_consumer_key">G21RpGrfXWdfVwPsB6zpc4hxm</string>
-    <string name="twitter_consumer_secret">YwCAsdwhMsYm449IGKnl6IGSBCBayoLkGezbl4GGjm93AUWeNf</string>
+    <string name="twitter_consumer_key">OO0NPS9XTBjaOcNIwEt5KLHTh</string>
+    <string name="twitter_consumer_secret">VOHzpqeIzCUb1s4EJUNJfrffancCQQbrIO1JDJr3WzgnDdxvPx</string>
     <string name="login_dialog_text">Please wait a moment...</string>
+    <string name="positive_mention_text">Enter a response for the case when a positive mention or message is received.</string>
+    <string name="negative_mention_text">Enter a response for the case when a negative mention or message is received.</string>
+    <string name="location_request_text">Click the below button to allow the app to access your location, which is used to filter tweets based on your location.</string>
+    <string name="manual_location_selection_text">If you don\'t wish to allow the app to access your location, you can enter it yourself from the list of major cities listed.</string>
 </resources>

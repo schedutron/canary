@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.kartik.canary.activity.LoginActivity"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorLoginBackground">
 
     <com.twitter.sdk.android.core.identity.TwitterLoginButton
         android:id="@+id/twitterLoginButton"
@@ -33,6 +33,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/ic_launcher_round" />
+        app:srcCompat="@drawable/bird" />
 
 </android.support.constraint.ConstraintLayout>

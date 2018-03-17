@@ -24,6 +24,8 @@
             android:name=".activity.LoginDialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity android:name=".activity.FirstSetupActivity" />
+        <activity android:name=".SecondSetupActivity"></activity>
     </application>
 
 </manifest>

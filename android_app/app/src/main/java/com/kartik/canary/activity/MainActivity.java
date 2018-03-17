@@ -15,7 +15,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends AppCompatActivity {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.toolbarDashboard) Toolbar toolbar;
     @OnClick(R.id.logout_button) void logOut() {
         FirebaseAuth instance = FirebaseAuth.getInstance();
         if(instance != null) {

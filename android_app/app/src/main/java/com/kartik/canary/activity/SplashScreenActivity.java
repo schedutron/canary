@@ -32,7 +32,7 @@ public class SplashScreenActivity extends AppCompatActivity {
     public void redirect() {
         if(FirebaseAuth.getInstance().getCurrentUser() != null) {
             Log.i("Splash: ", "user isn't null");
-            startActivity(new Intent(this, MainActivity.class)
+            startActivity(new Intent(this, FirstSetupActivity.class)
                     .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
         } else {
             Log.i("Splash: ", "user is null");
