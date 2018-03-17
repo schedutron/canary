@@ -2,15 +2,19 @@
 
 #import requests
 
-from flask import Flask, render_template #request, Response
-#from werkzeug.contrib.fixers import ProxyFix
+from flask import Flask, request
+from flask_restful import Resource, Api
+from json import dumps
+from flask.ext.jsonpify import jsonify
 
 app = Flask(__name__)
-#app.wsgi_app = ProxyFix(app.wsgi_app)
+api = Api(app)
 
-@app.route('/')
-def main():
-    return render_template('index.html', name='Hello world')
+class Main(Resource):
+    def get(self):
+        return {'Hello': 'World'}
+
+api.add_resource(Main, '/')
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0')
