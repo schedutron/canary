@@ -1,9 +1,11 @@
 """Database read/write wrappers"""
 
+from urllib import parse
 from flask import Flask, request, redirect
 import psycopg2
 
 def db_connect(url):
+    url = parse(url)
     """Returns a database connection object."""
     conn = psycopg2.connect(
         database=url.path[1:],

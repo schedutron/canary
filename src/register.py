@@ -7,6 +7,7 @@ from flask import Flask, request, redirect
 from twitter import Twitter, OAuth
 
 import src.database as database
+import src.functions as functions
 from src.credentials import *
 
 CONN = database.db_connect(USER_DATABASE_URL)
@@ -24,6 +25,7 @@ class AddUser(Resource):
         pos_text = request.args['post_text']
         neg_text = request.args['neg_text']
         location = request.args['location']
+        mobile = request.args['mobile']
 
         """if not self.parse_menu(request.files['menu']):
             response['status'] = 'failed'
@@ -41,9 +43,9 @@ class AddUser(Resource):
             response['reason'] = 'Twitter handle verification failed'
         
         if response['status'] == 'ok':  # Everything fine till now
-            #Verify.otp = generate_otp() -- to be implemented
-            #Verify.handle = handle
-            #send_user("Your Canary OTP is %s" % otp)
+            Verify.otp = random.randint(1000, 9999)
+            Verify.handle = handle
+            send_user(mobile, "Your OTP for Canary is %d" % Verify.otp)
 
             CURSOR.execute(
                 "INSERT INTO users VALUES(%s, %s, %s, %s, %s, %s, %s)",
@@ -68,7 +70,7 @@ class Verify(Resource):
     def get(self):
         """Checks OTP"""
         response = {}
-        user_otp = request.args['otp']
+        user_otp = int(request.args['otp'])
         if user_otp == Verify.otp:
             response['status'] = 'ok'
         else:
