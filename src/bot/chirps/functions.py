@@ -209,6 +209,13 @@ def get_accounts(db_access, rel_name):
     return accounts
 
 
+def get_location(db_access):
+    cur = get_cursor(db_access)
+    cur.execute("SELECT location from users where handle = %s",str(user_id))
+    location = cur.fetchall()
+    return location
+
+
 def db_connect(url):
     """Returns a database connection object."""
     conn = psycopg2.connect(

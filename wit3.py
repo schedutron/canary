@@ -1,37 +1,26 @@
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
-from __future__ import unicode_literals
-
-import sys
 from requests import get
 from wit import Wit
 
-if len(sys.argv) != 2:
-    print('usage: python ' + sys.argv[0] + ' <wit-token>')
-    exit(1)
-access_token = sys.argv[1]
-
-# Celebrities example
-# See https://wit.ai/aforaleka/wit-example-celebrities/
-
-
-def first_entity_value(entities, entity):
-    if entity not in entities:
-        return None
-    val = entities[entity][0]['value']
-    if not val:
-        return None
-    return val
-
-
-def handle_message(response):
-    entities = response['entities']
-    greetings = first_entity_value(entities, 'greetings')
-    sentiment = first_entity_value(entities, 'Sentiment')
-    restaurant = first_entity_value(entities, 'Restaurant')
-    return entities
     
 
-client = Wit(access_token=access_token)
-client.interactive(handle_message=handle_message)
+
+client = Wit(access_token='TFVKPDYHXP74N5VN4VALBSNY4PYWGX5C')
+while True:
+    print(client.message(input()))
+
+"""
+wit_client = Wit(access_token=WIT_TOKEN)
+                resp = wit_client.message(tweet)
+                value = []
+if resp['entities']:
+    for entity in entities:    
+        if entity in resp['entities'].keys():
+            present_entities.append(entity)
+            for present_entity in present_entities:
+                value.append(present_entity, resp['entities'][present_entity][0]['value'])
+                values.append(value)
+        else:
+            values.append(None)
+"""            
+
+#Values is a list which contains entities

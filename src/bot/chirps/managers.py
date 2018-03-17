@@ -16,11 +16,15 @@ import requests
 import chirps.functions as functions
 # For identifying offensive tweets.
 from chirps.offensive import OFFENSIVE
+from wit import Wit
+
 try:
     from chirps.screen_name import screen_name
+    from chirps.credentials import *
 except ModuleNotFoundError:
     import os
     screen_name = os.environ['SCREEN_NAME']
+    WIT_TOKEN= os.environ['WIT_TOKEN']
 
 # Perhaps using a database would be better if frequent updation is needed.
 # This gets links to files containing relevant data.
@@ -68,6 +72,63 @@ class StreamThread(threading.Thread):
         while True:
             try:
                 tweet = next(listener)
+                # Check if the tweet is original - workaroud for now.
+                # Listener also gets unwanted retweets, replies and so on.
+                if tweet['user']['id'] not in accounts:  # The 'in' operation not very efficient?
+                    # we have to ensure that the id is the person we're tracking. Maybe 'in' isn't good for that. 
+                    continue
+                kwargs = {'tweet': tweet, 'handler': self.handler, 'db_access': self.db_access}
+                self.action_func(kwargs)  # Note the nontraditional use of kwargs here.
+            except Exception as exception:
+                # Loop shouldn't stop if error occurs, and exception should be
+                # logged.
+                print(json.dumps(tweet, indent=4))
+                print(exception)
+                print('-*-'*33)
+
+class LocationThread(threading.Thread):
+    """
+    This class is to be used for listening specific locations on Twitter and
+    respond to them as soon as they tweet.
+    """
+
+    def __init__(self, identifier, stream_handler, account_handler, url, action_func):
+        self.identifier = identifier
+        threading.Thread.__init__(self)
+        self.stream_handler = stream_handler
+        self.handler = account_handler
+        self.conn = functions.db_connect(url)
+        print("Database connection successful.")
+        self.cur = self.conn.cursor()
+        self.db_access = {'conn': self.conn, 'cur': self.cur, 'url': url}  # To encapsulate db access data.
+        self.action_func = action_func
+
+    def run(self):
+        location = functions.get_location(self.handler.geo.id(place_id))
+        listener = self.stream_handler.statuses.filter(
+            follow=','.join([str(account) for account in accounts])
+        )
+        while True:
+            try:
+                tweet = next(listener)
+                wit_client = Wit(access_token=WIT_TOKEN)
+                resp = wit_client.message(tweet)
+                value = []
+                if resp['entities']:
+                    for entity in entities:    
+                        if entity in resp['entities'].keys():
+                            present_entities.append(entity)
+                    for present_entity in present_entities:
+                        value.append(present_entity, resp['entities'][present_entity][0]['value'])
+                    values.append(value)
+                else:
+                    values.append(None)
+                
+                for i in range(len(values)):
+                    if (values[i] == 'greetings')
+                    
+                        functions.reply(tweet)
+                
                 # Check if the tweet is original - workaroud for now.
                 # Listener also gets unwanted retweets, replies and so on.
                 if tweet['user']['id'] not in accounts:  # The 'in' operation not very efficient?

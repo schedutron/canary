@@ -57,6 +57,10 @@ def main():
     streamer = managers.StreamThread("Streamer",
                                      STREAM_HANDLER, ACCOUNT_HANDLER, url,
                                      functions.reply_with_shortened_url)
+                                     
+    location = managers.LocationThread("Streamer",
+                                     STREAM_HANDLER, ACCOUNT_HANDLER, url,
+                                     functions.reply_with_shortened_url)
     # For retweets, likes, follows.
     account_manager = managers.AccountThread(ACCOUNT_HANDLER, UPLOAD_HANDLER,
                                              url, args.rate, args.fav,
@@ -65,6 +69,7 @@ def main():
     admin = managers.StreamThread(
         "Admin", ADMIN_HANDLER, ACCESS_SECRET, url, functions.admin_action)
     streamer.start()
+    location.start()
     account_manager.start()
     admin.start()
     for thread in [streamer, account_manager, admin]:
