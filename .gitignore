@@ -4,3 +4,4 @@ requests
 src/__pycache__/
 src/.DS_Store
 .DS_Store
+src/credentials.py

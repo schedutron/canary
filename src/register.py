@@ -4,9 +4,9 @@ import random
 import twilio
 
 from flask import Flask, request, redirect
-from flask_restful import Resource, Api
-from json import dumps
-from flask.ext.jsonpify import jsonify
+
+import src.database as database
+from src.credentials import DATABASE_URL
 
 class AddUser(Resource):
     """Register a new user"""
@@ -53,6 +53,7 @@ class Verify(Resource):
             response['status'] = 'ok'
         else:
             response['status'] = 'failed'
+            response['reason'] = 'Mobile verification failed'
         return response
 
 
