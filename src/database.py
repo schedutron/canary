@@ -4,8 +4,8 @@ from urllib import parse
 from flask import Flask, request, redirect
 import psycopg2
 
-def db_connect(url):
-    url = parse(url)
+def db_connect(raw_url):
+    url = parse.urlparse(raw_url)
     """Returns a database connection object."""
     conn = psycopg2.connect(
         database=url.path[1:],

@@ -1,8 +1,10 @@
 """High level functions for bot management"""
+
+from twilio.rest import Client
 from src.credentials import TWILIO_PHONE_NUMBER, TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN
 import src.database as database
 
-client = TwilioRestClient(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
+client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
 def get_mobile(cur, handle):
     cur.execute("SELECT mobile FROM users WHERE handle=%s", handle)
