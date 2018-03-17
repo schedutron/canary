@@ -22,4 +22,3 @@ def get_cursor(db_access):
         db_access['cur'] = db_access['conn'].cursor()
     return db_access['cur']
 
-

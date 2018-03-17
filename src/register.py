@@ -6,7 +6,11 @@ import twilio
 from flask import Flask, request, redirect
 
 import src.database as database
-from src.credentials import DATABASE_URL
+from src.credentials import USER_DATABASE_URL
+
+CONN = database.db_connect(USER_DATABASE_URL)
+DB_ACCESS = {'conn': CONN, 'cur': CONN.cursor(), 'url': USER_DATABASE_URL}
+CURSOR = database.get_cursor(CONN)  # demo
 
 class AddUser(Resource):
     """Register a new user"""
@@ -54,6 +58,7 @@ class Verify(Resource):
         else:
             response['status'] = 'failed'
             response['reason'] = 'Mobile verification failed'
+            # delete the recent entry
         return response
 
 
