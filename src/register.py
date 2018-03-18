@@ -11,9 +11,7 @@ import src.database as database
 import src.functions as functions
 from src.credentials import *
 
-CONN = database.db_connect(USER_DATABASE_URL)
-DB_ACCESS = {'conn': CONN, 'cur': CONN.cursor(), 'url': USER_DATABASE_URL}
-CURSOR = database.get_cursor(DB_ACCESS)  # demo
+from src.main import CONN, CURSOR, DB_ACCESS
 
 class AddUser(Resource):
     """Register a new user"""

@@ -24,3 +24,9 @@ def get_cursor(db_access):
         db_access['cur'] = db_access['conn'].cursor()
     return db_access['cur']
 
+
+def get_creds(cursor, handle):
+    cur.execute(
+        "SELECT access_token, access_secret FROM users WHERE handle = '%s'" % handle
+        )
+    return cur.fetchone()
