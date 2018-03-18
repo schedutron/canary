@@ -11,9 +11,7 @@ import src.database as database
 import src.functions as functions
 from src.credentials import *
 
-CONN = database.db_connect(USER_DATABASE_URL)
-DB_ACCESS = {'conn': CONN, 'cur': CONN.cursor(), 'url': USER_DATABASE_URL}
-CURSOR = database.get_cursor(DB_ACCESS)  # demo
+from src.main import CONN, CURSOR, DB_ACCESS
 
 class AddUser(Resource):
     """Register a new user"""
@@ -70,6 +68,10 @@ class Verify(Resource):
         user_otp = int(request.args['otp'])
         if user_otp == Verify.otp:
             response['status'] = 'ok'
+            CUR.execute("CREATE DATABASE %s" % Verify.handle)
+            #init_db(Verify.handle)
+            #user_conn = database.db_connect(DB_ACCESS['url'].replace('/users', '')+'/' + Verify.handle)
+            #database.init_user_db(CUR, user_conn)
         else:
             response['status'] = 'failed'
             response['reason'] = 'Mobile verification failed'

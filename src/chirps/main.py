@@ -6,10 +6,6 @@ import os
 import argparse
 from urllib import parse
 from twitter import Twitter, OAuth, TwitterStream
-# Useful boilerplate functions for the overall Twitter bot.
-import chirps.functions as functions
-# Useful classes for streaming and account handling.
-import chirps.managers as managers
 
 # A different idea - use cookies to visit shortened links via visitors' devices.
 # Maybe we can utilize 'RT to win' stuff by this same script.
@@ -29,18 +25,13 @@ parser.add_argument("--follow", help="flag to enable following people",
                     action="store_true")
 parser.add_argument("--scrape", help="flag to specify content scraping",
                     default="", nargs="*")
+parser.add_argument("--at", help="access_token")
+parser.add_argument("--asec", help="access_secret")
 args = parser.parse_args()
 
-try:
-    from chirps.credentials import *
-except ModuleNotFoundError:
-    ACCESS_TOKEN = os.environ['ACCESS_TOKEN'],
-    ACCESS_SECRET = os.environ['ACCESS_SECRET'],
-    CONSUMER_KEY = os.environ['CONSUMER_KEY'],
-    CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
-
-    SHORTE_ST_TOKEN = os.environ['SHORTE_ST_TOKEN']
-    DATABASE_URL = os.environ["DATABASE_URL"]
+from chirps.credentials import *
+ACCESS_TOKEN = args.at
+ACCESS_SECRET = args.asec
 
 url = parse.urlparse(DATABASE_URL)
 
@@ -49,6 +40,13 @@ ACCOUNT_HANDLER = Twitter(auth=OAUTH)
 UPLOAD_HANDLER = Twitter(auth=OAUTH, domain="upload.twitter.com")
 STREAM_HANDLER = TwitterStream(auth=OAUTH)
 ADMIN_HANDLER = TwitterStream(auth=OAUTH)
+
+screen_name = ACCOUNT_HANDLER.account.verify_credentials().get('screen_name', None)
+
+# Useful boilerplate functions for the overall Twitter bot.
+import chirps.functions as functions
+# Useful classes for streaming and account handling.
+import chirps.managers as managers
 
 
 def main():
@@ -71,7 +69,7 @@ def main():
     streamer.start()
     location.start()
     account_manager.start()
-    admin.start()
+    #admin.start() - let admin be off for now
     for thread in [streamer, account_manager, admin]:
         thread.join()
 
