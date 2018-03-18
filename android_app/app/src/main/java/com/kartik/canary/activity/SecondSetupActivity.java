@@ -70,8 +70,8 @@ public class SecondSetupActivity extends AppCompatActivity {
             JSONArray array = new JSONArray(a);
             for(int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
-                String s = obj.getString("name") +", "+obj.getString("subcountry")
-                        +", "+obj.getString("country");
+                String s = obj.getString("name") +","+obj.getString("subcountry")
+                        +","+obj.getString("country");
                 arrayList.add(s);
             }
             Log.i("Array", arrayList.toString());

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:text="Click the switch to change."/>
 
-        <Switch
+        <android.support.v7.widget.SwitchCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

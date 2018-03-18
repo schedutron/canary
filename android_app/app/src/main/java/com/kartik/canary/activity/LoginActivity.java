@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity {
                 session.getAuthToken().secret);
 
         tinyDB.putString("token", session.getAuthToken().token);
-        tinyDB.putString("secret", session.getAuthToken().token);
+        tinyDB.putString("secret", session.getAuthToken().secret);
 
 
         showProgressDialog();

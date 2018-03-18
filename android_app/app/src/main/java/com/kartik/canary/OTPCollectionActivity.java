@@ -37,7 +37,7 @@ public class OTPCollectionActivity extends AppCompatActivity {
         if(s.length() != 4) {
             OTPText.setError("Enter valid OTP");
         } else {
-            new CheckOTP(this).execute(getString(R.string.base_url) + "/otp=" + s);
+            new CheckOTP(this).execute(getString(R.string.base_url) + "/register/verify?otp=" + s);
         }
     }
 
@@ -110,7 +110,7 @@ public class OTPCollectionActivity extends AppCompatActivity {
 
             if (s == null) {
                 Toast.makeText(mContext, "Request failed", Toast.LENGTH_SHORT).show();
-                //TODO Verify working of snackbar
+                hideProgressDialogAndRedirect(OTPCollectionActivity.class);
             } else {
                 try {
                     JSONObject obj = new JSONObject(s);

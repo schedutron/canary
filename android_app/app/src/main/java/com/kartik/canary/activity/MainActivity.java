@@ -41,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
         FirebaseAuth instance = FirebaseAuth.getInstance();
         if(instance != null) {
             instance.signOut();
-            startActivity(new Intent(this, LoginActivity.class));
+            startActivity(new Intent(this, LoginActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
         }
     }
 

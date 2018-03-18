@@ -64,6 +64,14 @@ public class ThirdSetupActivity extends AppCompatActivity {
         if(SetupData.getPhoneNumber() != null) {
             phoneNumberView.setText(SetupData.getPhoneNumber());
         }
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String s = SetupData.getLocation();
+                SetupData.setLocation(s.replace(",", "%2C"));
+            }
+        }).start();
     }
 
     void communicateWithServer() {
@@ -73,7 +81,7 @@ public class ThirdSetupActivity extends AppCompatActivity {
         String s = getString(R.string.base_url) + "/register?pos_text="+SetupData.getPositiveResponse()
                 +"&neg_text="+SetupData.getNegativeResponse()
                 +"&location="+SetupData.getLocation()
-                +"&mobile="+SetupData.getLocation()+
+                +"&mobile="+SetupData.getPhoneNumber()+
                 "&access_token="+token+"&access_secret="+secret;
         Log.i("URL", s);
         new PushData(this).execute(s);
@@ -138,6 +146,7 @@ public class ThirdSetupActivity extends AppCompatActivity {
 
             if (s == null) {
                 Toast.makeText(mContext, "Request failed", Toast.LENGTH_SHORT).show();
+                hideProgressDialogAndRedirect(ThirdSetupActivity.class);
                 //TODO Verify working of snackbar
             } else {
                 try {
@@ -146,6 +155,7 @@ public class ThirdSetupActivity extends AppCompatActivity {
                         hideProgressDialogAndRedirect(OTPCollectionActivity.class);
                     } else {
                         Toast.makeText(mContext, obj.getString("reason"), Toast.LENGTH_SHORT).show();
+                        hideProgressDialogAndRedirect(ThirdSetupActivity.class);
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
