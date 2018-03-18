@@ -18,17 +18,12 @@ import chirps.functions as functions
 from chirps.offensive import OFFENSIVE
 from wit import Wit
 
-try:
-    from chirps.screen_name import screen_name
-    from chirps.credentials import *
-except ModuleNotFoundError:
-    import os
-    screen_name = os.environ['SCREEN_NAME']
-    WIT_TOKEN= os.environ['WIT_TOKEN']
+from chirps.main import screen_name, CONSUMER_KEY, CONSUMER_SECRET, ACCESS_TOKEN, ACCESS_SECRET
+from chirps.credentials import WIT_TOKEN
 
 # Perhaps using a database would be better if frequent updation is needed.
 # This gets links to files containing relevant data.
-# Add hashtabgs to tweets - they generate more views.
+# Add hashtags to tweets - they generate more views.
 # Simply use Twitter to add keywords to the database instead of using Dropbox.
 # Move fast and break things!
 # Add ease of scaling down follow, like and retweet functionalities separately.

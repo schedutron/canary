@@ -103,7 +103,8 @@ def find_news(newsfuncs):  # Not fully implemented, needs other functions
 
 def shorten_url(url):  # Not fully implemented
     """Shortens the passed url using shorte.st's API."""
-    from chirps.credentials import SHORTE_ST_TOKEN
+   """ from chirps.credentials import SHORTE_ST_TOKEN"""
+   SHORTE_ST_TOKEN = ''
     response = requests.put(
         "https://api.shorte.st/v1/data/url",
         {"urlToShorten": url}, headers={"public-api-token": SHORTE_ST_TOKEN}
