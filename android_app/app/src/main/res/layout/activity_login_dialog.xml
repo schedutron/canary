@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    tools:context="com.kartik.canary.activity.LoginDialogActivity">
+    tools:context="com.kartik.canary.activity.DialogActivity">
 
     <ProgressBar
         android:layout_width="wrap_content"

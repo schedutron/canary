@@ -6,5 +6,6 @@
     <string name="positive_mention_text">Enter a response for the case when a positive mention or message is received.</string>
     <string name="negative_mention_text">Enter a response for the case when a negative mention or message is received.</string>
     <string name="location_request_text">Click the below button to allow the app to access your location, which is used to filter tweets based on your location.</string>
-    <string name="manual_location_selection_text">If you don\'t wish to allow the app to access your location, you can enter it yourself from the list of major cities listed.</string>
+    <string name="manual_location_selection_text">Enter the name of your city from the list of major cities listed.</string>
+    <string name="base_url">http://172.20.10.7:5000</string>
 </resources>

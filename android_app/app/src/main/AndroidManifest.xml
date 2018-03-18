@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:windowSoftInputMode="adjustResize">
         <activity android:name=".activity.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -21,11 +22,13 @@
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.MainActivity" />
         <activity
-            android:name=".activity.LoginDialogActivity"
+            android:name=".activity.DialogActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity android:name=".activity.FirstSetupActivity" />
-        <activity android:name=".SecondSetupActivity"></activity>
+        <activity android:name=".activity.SecondSetupActivity" />
+        <activity android:name=".activity.ThirdSetupActivity" />
+        <activity android:name=".OTPCollectionActivity"></activity>
     </application>
 
 </manifest>

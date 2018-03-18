@@ -1,10 +1,14 @@
-package com.kartik.canary;
+package com.kartik.canary.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+
+import com.kartik.canary.R;
+import com.kartik.canary.SetupData;
 
 import org.apache.commons.io.IOUtils;
 import org.json.JSONArray;
@@ -17,10 +21,30 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class SecondSetupActivity extends AppCompatActivity {
 
+    ArrayList<String> list = new ArrayList<>();
     @BindView(R.id.locationEditText) AutoCompleteTextView locationEditText;
+    @OnClick(R.id.toFirstSetupFAB) void toFirstSetupFAB() {
+        String city = String.valueOf(locationEditText.getText());
+        if(!list.contains(city)) {
+            locationEditText.setError("Please select a city from the given options.");
+        } else {
+            SetupData.setLocation(city);
+            startActivity(new Intent(this, FirstSetupActivity.class));
+        }
+    }
+    @OnClick(R.id.toThirdSetupFAB) void toThirdSetupFAB() {
+        String city = String.valueOf(locationEditText.getText());
+        if(!list.contains(city)) {
+            locationEditText.setError("Please select a city from the given options.");
+        } else {
+            SetupData.setLocation(city);
+            startActivity(new Intent(this, ThirdSetupActivity.class));
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +53,12 @@ public class SecondSetupActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, getArrayFromJson());
+        if(SetupData.getLocation() != null) {
+            locationEditText.setText(SetupData.getLocation());
+        }
+
+        list = getArrayFromJson();
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, list);
         locationEditText.setAdapter(adapter);
     }
 
@@ -51,5 +80,10 @@ public class SecondSetupActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @Override
+    public void onBackPressed() {
+        toFirstSetupFAB();
     }
 }

@@ -15,6 +15,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.TwitterAuthProvider;
 import com.kartik.canary.R;
+import com.kartik.canary.TinyDB;
 import com.twitter.sdk.android.core.Callback;
 import com.twitter.sdk.android.core.Result;
 import com.twitter.sdk.android.core.Twitter;
@@ -30,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private TwitterLoginButton mLoginButton;
 
+    TinyDB tinyDB;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
                 .build();
 
         Twitter.initialize(twitterConfig);
+        tinyDB = new TinyDB(this);
 
         setContentView(R.layout.activity_login);
 
@@ -79,9 +83,8 @@ public class LoginActivity extends AppCompatActivity {
                 session.getAuthToken().token,
                 session.getAuthToken().secret);
 
-        Log.i("Token", session.getAuthToken().token);
-        Log.i("Secret", session.getAuthToken().secret);
-
+        tinyDB.putString("token", session.getAuthToken().token);
+        tinyDB.putString("secret", session.getAuthToken().token);
 
 
         showProgressDialog();
@@ -118,7 +121,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void showProgressDialog() {
-        startActivity(new Intent(getApplicationContext(), LoginDialogActivity.class));
+        startActivity(new Intent(getApplicationContext(), DialogActivity.class));
     }
 
     public void hideProgressDialogAndRedirect(Class mClass) {
