@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Canary</string>
-    <string name="twitter_consumer_key">XbjoWf5qOv3UWf3x3N7dWPq7h</string>
-    <string name="twitter_consumer_secret">z5nZ0ziocWLy1i5MuzYOJQGbptXR6GmiYlkfbb3P1UlYm6RfkV</string>
+    <string name="twitter_consumer_key">lAURjv1ynQC6qn6qWNbelmXnW</string>
+    <string name="twitter_consumer_secret">hlaT2zB1P6pvqfJFb5YrxHHlq2lR8gHAJ4OoYHmJfDOp5SZUMa</string>
     <string name="login_dialog_text">Please wait a moment...</string>
     <string name="positive_mention_text">Enter a response for the case when a positive mention or message is received.</string>
     <string name="negative_mention_text">Enter a response for the case when a negative mention or message is received.</string>
