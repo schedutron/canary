@@ -72,13 +72,45 @@ class StreamThread(threading.Thread):
         while True:
             try:
                 tweet = next(listener)
-                # Check if the tweet is original - workaroud for now.
-                # Listener also gets unwanted retweets, replies and so on.
-                if tweet['user']['id'] not in accounts:  # The 'in' operation not very efficient?
-                    # we have to ensure that the id is the person we're tracking. Maybe 'in' isn't good for that. 
+                if tweet['user']['screen_name'] == self.account_handler.account.verify_credentials().get('screen_name', None):  
                     continue
-                kwargs = {'tweet': tweet, 'handler': self.handler, 'db_access': self.db_access}
-                self.action_func(kwargs)  # Note the nontraditional use of kwargs here.
+                    
+                wit_client = Wit(access_token=WIT_TOKEN)
+                resp = wit_client.message(tweet['status']['text'])
+                
+                messages = ['Hi there!', 'Hello there!', 'Hola!', 'Hey there!', 'Wassup!']
+                messages.shuffle()
+                message = str()
+                value = []
+                present_entities = []
+                if resp['entities']:
+                    for entity in entities:    
+                        if entity in resp['entities'].keys():
+                            present_entities.append(entity)
+                    for present_entity in present_entities:
+                        value.append((present_entity, resp['entities'][present_entity][0]['value']))
+                else:
+                    value.append(None)
+                
+                for val in value:
+                    if val[0] == 'greetings':
+                        message = messages[0] 
+                        #functions.reply(self.handler, tweet['id'], "Hi there! Hungry today?") # Make message variable
+                    if val[0] == 'Restaurant':
+                        second_message = 'Checkout our restaurant Food Barn. We will serve you delicious meals. \
+                        With the food this delicious, you will have a great experience.'
+                        if message is not None:
+                            message = message + ' ' + second_message
+                        else:
+                            message = second_message
+                    if val[0] == 'sentiment':
+                        if val[1] == 'positive':
+                            message = message + ' Thanks for your encouraging words'
+                        if val[1] == 'negative':
+                            message = message + ' ' +'Thanks for your valuable feedback. We will try to improve ourselves.'
+                            
+                    functions.reply(self.handler, tweet['id'], message)
+                
             except Exception as exception:
                 # Loop shouldn't stop if error occurs, and exception should be
                 # logged.
@@ -109,7 +141,6 @@ class LocationThread(threading.Thread):
         loc = '81.666447,25.294306,81.936722,25.510221'  # Let this be the default for now
         listener = self.stream_handler.statuses.filter(
             locations=loc)
-        )
         while True:
             try:
                 tweet = next(listener)
@@ -123,14 +154,26 @@ class LocationThread(threading.Thread):
                             present_entities.append(entity)
                     for present_entity in present_entities:
                         value.append((present_entity, resp['entities'][present_entity][0]['value']))
-                    values.append(value)
                 else:
-                    values.append(None)
+                    value.append(None)
                 
                 # Do we really need the below loop construct, we only want to reply once!
-                for i in range(len(values)):
-                    if values[i] == 'greetings':
-                        functions.reply(self.handler, tweet['id'], "Hi there! Hungry today?") # Make message variable
+                messages = ['Hi there', 'Hello there', 'Hola', 'Hey there', 'Wassup']
+                messages.shuffle()
+                message = str()
+                for val in value:
+                    if val[0] == 'greetings':
+                        message = messages[0] 
+                        #functions.reply(self.handler, tweet['id'], "Hi there! Hungry today?") # Make message variable
+                    if val[0] == 'Restaurant':
+                        if message is not None:
+                            second_message = 'Checkout our restaurant Food Barn. We will serve you delicious meals. \
+                            With the food this delicious, you will have a great experience'
+                            message = message + ' ' + second_message
+                        else:
+                            message = second_message
+                    
+                    functions.reply(self.handler, tweet['id'], message)
                 # Add more decision making here
                 # And send sms notifications to user, if s/he's offline
             except Exception as exception:
