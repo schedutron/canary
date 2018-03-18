@@ -9,13 +9,13 @@
     <android.support.v7.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:id="@+id/toolbar" />
+        android:id="@+id/toolbarDashboard" />
 
     <include
         layout="@layout/name_card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/toolbar"/>
+        android:layout_below="@id/toolbarDashboard"/>
 
     <Button
         android:id="@+id/logout_button"
