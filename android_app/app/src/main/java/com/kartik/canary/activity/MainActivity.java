@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void switchBot(boolean status) {
-
+        
     }
 
     private class SwitchBot extends AsyncTask<String, Void, String> {

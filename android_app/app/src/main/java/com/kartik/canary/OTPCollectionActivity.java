@@ -32,11 +32,11 @@ public class OTPCollectionActivity extends AppCompatActivity {
 
     @BindView(R.id.otp_text) EditText OTPText;
     @OnClick(R.id.confirmOTP) void confirmOTP() {
-        showProgressDialog();
         String s = String.valueOf(OTPText.getText());
         if(s.length() != 4) {
             OTPText.setError("Enter valid OTP");
         } else {
+            showProgressDialog();
             new CheckOTP(this).execute(getString(R.string.base_url) + "/register/verify?otp=" + s);
         }
     }

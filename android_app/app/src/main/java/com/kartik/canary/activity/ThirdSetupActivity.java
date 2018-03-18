@@ -69,7 +69,7 @@ public class ThirdSetupActivity extends AppCompatActivity {
             @Override
             public void run() {
                 String s = SetupData.getLocation();
-                SetupData.setLocation(s.replace(",", "%2C"));
+                SetupData.setLocation(s.replace(", ", "%2C"));
             }
         }).start();
     }

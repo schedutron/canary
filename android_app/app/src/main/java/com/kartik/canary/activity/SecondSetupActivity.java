@@ -18,6 +18,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -53,13 +54,12 @@ public class SecondSetupActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
+        locationEditText.setEnabled(false);
+        getArrayFromJson();
+
         if(SetupData.getLocation() != null) {
             locationEditText.setText(SetupData.getLocation());
         }
-
-        list = getArrayFromJson();
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, list);
-        locationEditText.setAdapter(adapter);
     }
 
     public ArrayList<String> getArrayFromJson() {
@@ -70,12 +70,17 @@ public class SecondSetupActivity extends AppCompatActivity {
             JSONArray array = new JSONArray(a);
             for(int i = 0; i < array.length(); i++) {
                 JSONObject obj = array.getJSONObject(i);
-                String s = obj.getString("name") +","+obj.getString("subcountry")
-                        +","+obj.getString("country");
+                String s = obj.getString("name") +", "+obj.getString("subcountry")
+                        +", "+obj.getString("country");
                 arrayList.add(s);
             }
+            Collections.sort(arrayList);
             Log.i("Array", arrayList.toString());
-            return arrayList;
+            list = arrayList;
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item, list);
+            locationEditText.setAdapter(adapter);
+            locationEditText.setEnabled(true);
+
         } catch (IOException | JSONException e) {
             e.printStackTrace();
         }
