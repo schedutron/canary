@@ -9,13 +9,15 @@ from flask_restful import Resource, Api
 from json import dumps
 from flask.ext.jsonpify import jsonify
 
-import src.register as register
 import src.database as database
+from src.credentials import *
 import subprocess
 
 CONN = database.db_connect(USER_DATABASE_URL)
 DB_ACCESS = {'conn': CONN, 'cur': CONN.cursor(), 'url': USER_DATABASE_URL}
 CURSOR = database.get_cursor(DB_ACCESS)  # demo
+
+import src.register as register
 
 app = Flask(__name__)
 api = Api(app)
@@ -38,7 +40,7 @@ class Main(Resource):
                 retweet = ''
             handle = request.args['handle']
             access_token, access_secret = database.get_creds(CURSOR, handle)
-            cmd = 'python3 -m chirps.main --rate=%s --at=%s --asec=%s' % (rate, fav, retweet, access_token, access_secret)
+            cmd = 'python3 -m chirps.main --rate=%s --at=%s --asec=%s --dburl=%s' % (rate, fav, retweet, access_token, access_secret, handle)
             pro = subprocess.Popen(cmd.split())
             global_process_map[handle] = pro.pid
 

@@ -68,6 +68,10 @@ class Verify(Resource):
         user_otp = int(request.args['otp'])
         if user_otp == Verify.otp:
             response['status'] = 'ok'
+            CUR.execute("CREATE DATABASE %s" % Verify.handle)
+            #init_db(Verify.handle)
+            #user_conn = database.db_connect(DB_ACCESS['url'].replace('/users', '')+'/' + Verify.handle)
+            #database.init_user_db(CUR, user_conn)
         else:
             response['status'] = 'failed'
             response['reason'] = 'Mobile verification failed'
