@@ -70,12 +70,13 @@ public class ThirdSetupActivity extends AppCompatActivity {
         showProgressDialog();
         String token = tinyDB.getString("token");
         String secret = tinyDB.getString("secret");
-        String s = "/register?pos_text="+SetupData.getPositiveResponse()
+        String s = getString(R.string.base_url) + "/register?pos_text="+SetupData.getPositiveResponse()
                 +"&neg_text="+SetupData.getNegativeResponse()
                 +"&location="+SetupData.getLocation()
                 +"&mobile="+SetupData.getLocation()+
                 "&access_token="+token+"&access_secret="+secret;
-        new PushData(this).execute(getString(R.string.base_url) + s);
+        Log.i("URL", s);
+        new PushData(this).execute(s);
     }
 
     @Override

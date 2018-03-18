@@ -3,7 +3,7 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:id="@+id/name_card_view"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="100dp"
     android:layout_margin="4dp"
     android:clickable="false"
     android:focusable="false"
@@ -19,25 +19,35 @@
         android:padding="7dp">
 
         <TextView
-            android:id="@+id/textView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Click the switch to change."/>
+
+        <Switch
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="11dp"
-            android:text="Sample Name"
-            android:textSize="30sp" />
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="18dp"
+            android:id="@+id/toggleSwitch" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignStart="@+id/textView2"
-            android:layout_below="@+id/textView2"
-            android:layout_marginTop="10dp"
-            android:text="TextView" />
+            android:layout_alignBottom="@+id/toggleSwitch"
+            android:layout_marginEnd="14dp"
+            android:layout_toStartOf="@+id/toggleSwitch"
+            android:text="Off" />
 
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/textView5"
+            android:layout_marginStart="11dp"
+            android:layout_toEndOf="@+id/toggleSwitch"
+            android:text="On" />
 
     </RelativeLayout>
 
