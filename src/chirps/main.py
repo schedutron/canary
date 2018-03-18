@@ -71,7 +71,7 @@ def main():
     streamer.start()
     location.start()
     account_manager.start()
-    admin.start()
+    #admin.start() - let admin be off for now
     for thread in [streamer, account_manager, admin]:
         thread.join()
 

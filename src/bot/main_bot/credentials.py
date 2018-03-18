@@ -1,6 +1,0 @@
-ACCESS_TOKEN='257842996-kpiKA4Wj1aoEaYpyWaymOfNmpE0FkydcqFCNgqtC'
-ACCESS_SECRET='WPbw9lINMQNPq0GQcqrzFrTe5FtVjGREja9mTUFfJvY5q'
-CONSUMER_KEY='Bv4SEuyORNffy4v8OzD78Bqax'
-CONSUMER_SECRET='eb1rAe4LPZ2XVrpP7s3BFeLpCZnY2Lx7Bs2Dx2ofWfbR5t4Xv2'
-DATABASE_URL='postgres://schedutron:larryellison@twitterbot.c4c4gqspa7xm.eu-west-1.rds.amazonaws.com:5432/arichduvet?sslmode=verify-full&sslrootcert=config/rds-combined-ca-bundle.pem'
-SHORTE_ST_TOKEN='a6608141b0601344ef387f4cb96be5dd'
